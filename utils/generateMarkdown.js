@@ -97,13 +97,79 @@ const tableOfContentsLicense = license => {
   }
   return `* [License](#license)`
 }
+const tableOfContentsBadges = badges => {
+  if (!badges) {
+    return '';
+  }
+  return `* [Badges](#badges)`
+}
+const tableOfContentsFeatures = features => {
+  if (!features) {
+    return '';
+  }
+  return `* [Features](#features)`
+}
+const tableOfContentsContributing = contributing => {
+  if (!contributing) {
+    return '';
+  }
+  return `* [Contributing](#contributing)`
+}
+const tableOfContentsTests = tests => {
+  if (!tests) {
+    return '';
+  }
+  return `* [Tests](#tests)`
+}
 
 
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
+// function generateMarkdown(data) {
+//   return `# ${data.title}
 
+// `;
+// }
+
+module.exports = generateMarkdown => {
+  const { projectName, description, installation, usage, credits, github, email, ...notRequired } = generateMarkdown;
+  //console.log(generateMarkdown);
+
+  return `# ${projectName}
+    ${renderLicenseBadge(notRequired.license)}
+
+${description}
+
+${generateTableOfContents(notRequired.confirmTableOfContents)}
+${tableOfContentsLicense(notRequired.license)}
+${tableOfContentsBadges(notRequired.badges)}
+${tableOfContentsFeatures(notRequired.features)}
+${tableOfContentsContributing(notRequired.contributing)}
+${tableOfContentsTests(notRequired.tests)}
+
+# Installation
+
+${installation}
+
+# Usage 
+
+${usage}
+
+# Credits
+
+${credits}
+
+# Questions
+
+[Contact Me](${email})
+
+[GitHub](https://github.com/${github})
+
+${generateLicense(notRequired.license)}
+${generateBadges(notRequired.badges)}
+${generateFeatures(notRequired.features)}
+${generateContributing(notRequired.contributing)}
+${generateTests(notRequired.tests)}
 `;
 }
 
-module.exports = generateMarkdown;
+
