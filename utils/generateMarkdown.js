@@ -1,11 +1,13 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-// function renderLicenseBadge(license) {}
 const renderLicenseBadge = licenseName => {
   if (!licenseName) {
     return '';
   }
   if (licenseName.includes('MIT')) {
+    licenseName = 'MIT';
+  }
+  if (licenseName.includes('GNU')) {
     licenseName = 'GNU_General_Public_v3.0';
   }
   if (licenseName.includes('Mozilla')) {
@@ -14,13 +16,13 @@ const renderLicenseBadge = licenseName => {
   if (licenseName.includes('Unlicense')) {
     licenseName = 'The Unlicense';
   }
-  return '![license](https://img.shields.io/badge/License-${licenseName}-blue)'
+  return `
+![license](https://img.shields.io/badge/License-${licenseName}-blue)`
 
 }
 
-// TODO: Create a function that returns the license link
+// TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-// function renderLicenseLink(license) {}
 const generateLicense = LicenseText => {
   if (!LicenseText) {
     return '';
@@ -41,7 +43,6 @@ const generateBadges = badgesText => {
 ${badgesText}
     `;
 };
-
 // create the features section
 const generateFeatures = featuresText => {
   if (!featuresText) {
@@ -52,7 +53,6 @@ const generateFeatures = featuresText => {
 ${featuresText}
     `;
 };
-
 // create the Contributing section
 const generateContributing = contributingText => {
   if (!contributingText) {
@@ -63,7 +63,6 @@ const generateContributing = contributingText => {
 ${contributingText}
     `;
 };
-
 // create the tests section
 const generateTests = testsText => {
   if (!testsText) {
@@ -87,10 +86,8 @@ const generateTableOfContents = tableOfContents => {
 * [Credits](#credits)
 * [Questions](#questions)`;
 };
-
-// TODO: Create a function that returns the license section of README
+// TODO: Create a function that returns the license link
 // If there is no license, return an empty string
-// function renderLicenseSection(license) {}
 const tableOfContentsLicense = license => {
   if (!license) {
     return '';
@@ -121,14 +118,6 @@ const tableOfContentsTests = tests => {
   }
   return `* [Tests](#tests)`
 }
-
-
-// TODO: Create a function to generate markdown for README
-// function generateMarkdown(data) {
-//   return `# ${data.title}
-
-// `;
-// }
 
 module.exports = generateMarkdown => {
   const { projectName, description, installation, usage, credits, github, email, ...notRequired } = generateMarkdown;
@@ -171,5 +160,3 @@ ${generateContributing(notRequired.contributing)}
 ${generateTests(notRequired.tests)}
 `;
 }
-
-
